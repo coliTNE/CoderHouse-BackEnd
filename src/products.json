@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Zapatilla",
+    "description": "Zapatillas Nike air XD",
+    "price": 40000,
+    "thumbnail": "ejemplo.jpg",
+    "code": "ABC123",
+    "stock": 10,
+    "id": 1
+  },
+  {
+    "title": "Camiseta de Boquita",
+    "description": "Vamo Boquitaaa",
+    "price": 20000,
+    "thumbnail": "ejemplo.jpg",
+    "code": "CABJ",
+    "stock": 6,
+    "id": 2
+  },
+  {
+    "title": "Pantalon roto",
+    "description": "ta roto",
+    "price": 2,
+    "thumbnail": "ejemplo.jpg",
+    "code": "ROTO123",
+    "stock": 1,
+    "id": 3
+  }
+]
