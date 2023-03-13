@@ -1,39 +1,26 @@
-const fs = require("fs");
+const FileManager = require("./fileManager");
 
 class Product {
-  constructor({ id, title, description, price, thumbnail, code, stock }) {
+  constructor({
+    id,
+    title,
+    description,
+    code,
+    price,
+    status = true,
+    stock,
+    category,
+    thumbnail,
+  }) {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.price = price;
-    this.thumbnail = thumbnail;
     this.code = code;
+    this.price = price;
+    this.status = status;
     this.stock = stock;
-  }
-}
-
-class FileManager {
-  #path;
-
-  constructor(route) {
-    this.#path = route;
-  }
-
-  async init() {
-    try {
-      const list = await fs.promises.readFile(this.#path, "utf-8");
-      return JSON.parse(list);
-    } catch (error) {
-      console.error(`Error al actualizar productos ${error}`);
-    }
-  }
-
-  async write(list) {
-    try {
-      await fs.promises.writeFile(this.#path, JSON.stringify(list));
-    } catch (error) {
-      console.error(`Error al actualizar productos ${error}`);
-    }
+    this.category = category;
+    this.thumbnail = thumbnail;
   }
 }
 
@@ -53,9 +40,28 @@ class ProductManager {
       : this.#productsList[this.#productsList.length - 1].id + 1;
   }
 
+  //
+
   async addProduct(product) {
     try {
       const newProduct = new Product({ id: this.createId(), ...product });
+      const { id, title, description, code, price, status, stock, category } =
+        newProduct;
+
+      if (
+        !id ||
+        !title ||
+        !description ||
+        !code ||
+        !price ||
+        !status ||
+        !stock ||
+        !category
+      ) {
+        throw new Error(
+          "Porfavor rellena todos los campos. (Excepto Thumbnails)"
+        );
+      }
 
       this.#productsList.push(newProduct);
       await this.fileManager.write(this.#productsList);
@@ -85,8 +91,7 @@ class ProductManager {
       );
 
       if (index === -1) {
-        console.log(`El producto con el id ${id} no existe.`);
-        return;
+        throw new Error(`El producto con el id ${id} no existe.`);
       }
 
       this.#productsList[index] = { ...this.#productsList[index], ...obj };
@@ -105,8 +110,7 @@ class ProductManager {
       );
 
       if (index === -1) {
-        console.log(`El producto con el id ${id} no existe.`);
-        return;
+        throw new Error(`El producto con el id ${id} no existe.`);
       }
 
       this.#productsList.splice(index, 1);
@@ -124,7 +128,6 @@ class ProductManager {
   }
 }
 
-const manager = new ProductManager("src/products.json");
+const manager = new ProductManager("products.json");
 manager.loadProducts();
-
 module.exports = manager;
