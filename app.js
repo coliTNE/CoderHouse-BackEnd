@@ -1,11 +1,11 @@
 // Needs
 const express = require("express");
-const productList = require("./src/products");
+const manager = require("./src/products");
 
 // Init
 
 const app = express();
-productList.init();
+manager.init();
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.get("/products", (req, res) => {
   try {
     const limit = req.query.limit ? parseInt(req.query.limit) : null;
-    const products = productList.getProducts();
+    const products = manager.getProducts();
     let response = "";
 
     if (products.length > 0) {
@@ -41,7 +41,7 @@ app.get("/products", (req, res) => {
 app.get("/products/:pid", (req, res) => {
   try {
     const pid = req.params.pid;
-    const product = productList.getProductById(+pid);
+    const product = manager.getProductById(+pid);
     if (typeof product === "string") {
       res.send(product);
     } else {
