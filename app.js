@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.get("/products", (req, res) => {
   try {
-    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const limit = req.query.limit ? +req.query.limit : null;
     const products = manager.getProducts();
     let response = "";
 
