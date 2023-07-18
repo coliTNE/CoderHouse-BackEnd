@@ -1,7 +1,7 @@
 // Needs
 
 const cartRouter = require("express").Router();
-const cartController = require("../controller/cart");
+const cartController = require("../controller/carts");
 
 // Init
 

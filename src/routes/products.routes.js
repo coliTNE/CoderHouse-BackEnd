@@ -27,7 +27,7 @@ productsRouter.get("/", async (req, res) => {
 productsRouter.get("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
-    const product = productsController.getProduct(pid);
+    const product = productsController.getProductById(+pid);
     if (product) {
       res.status(200).json(product);
     } else {
