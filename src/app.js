@@ -1,12 +1,11 @@
 // Needs
 const express = require("express");
-const manager = require("./controller/products");
 
 // Init
 
 const app = express();
-manager.init();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 

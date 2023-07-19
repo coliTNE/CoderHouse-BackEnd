@@ -42,7 +42,7 @@ class CartManager {
   async addCart() {
     try {
       const id = this.createId();
-      const newCart = { id, products: [] };
+      const newCart = { id: id, products: [] };
       this.carts.push(newCart);
       await this.write();
       return newCart;
@@ -65,11 +65,12 @@ class CartManager {
       const cart = this.existingCart(cid);
       if (cart) {
         const products = cart.products;
-        const foundProduct = products.find((obj) => obj.id === pid);
+        const foundProduct = products.find((obj) => obj.pid === pid);
         if (foundProduct) {
           foundProduct.quantity += product.quantity;
         } else {
-          products.push(product);
+          const newProduct = { pid: pid, quantity: product.quantity };
+          products.push(newProduct);
         }
         cart.products.push(product);
         await this.write();
@@ -83,6 +84,6 @@ class CartManager {
   }
 }
 
-const cartManager = new CartManager("./carts.json");
+const manager = new CartManager("./carts.json");
 
-module.exports = cartManager;
+module.exports = manager;

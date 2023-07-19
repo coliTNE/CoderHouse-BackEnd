@@ -23,11 +23,11 @@ cartRouter.get("/:cid", async (req, res) => {
   // GET /api/cart/:cid
   try {
     const { cid } = req.params;
-    const product = cartController.getCartById(cid);
-    if (product) {
-      res.status(200).json(product);
+    const cart = cartController.getCartById(cid);
+    if (cart) {
+      res.status(200).json(cart);
     } else {
-      res.status(404).json({ error: "Producto no encontrado" });
+      res.status(404).json({ error: "Carrito no encontrado" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
