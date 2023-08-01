@@ -84,6 +84,6 @@ class CartManager {
   }
 }
 
-const manager = new CartManager("./carts.json");
+const manager = new CartManager("./carrito.json");
 
 module.exports = manager;

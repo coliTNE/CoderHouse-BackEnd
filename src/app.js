@@ -9,7 +9,9 @@ app.use(express.json());
 
 // Routes
 
-app.use("/api", require("./routes/index.routes"));
+const indexRouter = require("./routes/index.routes");
+
+app.use("/api", indexRouter);
 
 // Server
 

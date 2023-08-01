@@ -113,6 +113,6 @@ class ProductManager {
   }
 }
 
-const manager = new ProductManager("./products.json");
+const manager = new ProductManager("./productos.json");
 
 module.exports = manager;
