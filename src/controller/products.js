@@ -41,9 +41,21 @@ class ProductManager {
 
   async addProduct(product) {
     try {
+      if (
+        !product.title ||
+        !product.price ||
+        !product.description ||
+        !product.code ||
+        !product.status ||
+        !product.stock ||
+        !product.category
+      ) {
+        return "Faltan datos";
+      }
       const id = this.createId();
       const newProduct = { ...product, id };
-      this.list.push(newProduct);
+      const list = this.list;
+      list.push(newProduct);
       await this.write();
       return newProduct;
     } catch (error) {
@@ -94,6 +106,7 @@ class ProductManager {
       const index = this.list.indexOf(existingProduct);
       this.list.splice(index, 1);
       await this.write();
+      return "Se elimino el producto con id " + id;
     } catch (error) {
       console.error(`Error al eliminar producto ${error}`);
     }

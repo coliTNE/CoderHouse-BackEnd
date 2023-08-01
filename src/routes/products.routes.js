@@ -52,7 +52,7 @@ productsRouter.put("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
     const product = req.body;
-    const updatedProduct = await productsController.updateProduct(pid, product);
+    const updatedProduct = await productsController.updateProduct(+pid, product);
     if (updatedProduct) {
       res.status(200).json(updatedProduct);
     } else {
@@ -66,7 +66,7 @@ productsRouter.put("/:pid", async (req, res) => {
 productsRouter.delete("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
-    const deletedProduct = await productsController.deleteProduct(pid);
+    const deletedProduct = await productsController.deleteProduct(+pid);
     if (deletedProduct) {
       res.status(200).json(deletedProduct);
     } else {
